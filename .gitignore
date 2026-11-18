@@ -1,0 +1,6 @@
+data/derived/
+data/raw/ipums/*
+!data/raw/ipums/README.md
+__pycache__/
+*.pyc
+.DS_Store

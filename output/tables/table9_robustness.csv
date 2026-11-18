@@ -1,0 +1,24 @@
+INSTNM,CIPCODE,state,instate,earn4,th_rule,margin_rule,earners4,yeshiva,class,flips
+United Talmudical Seminary,3802,NY,0.8876404494382022,18837.0,30793.0,-11956.0,464.0,True,robust fail,
+Be'er Yaakov Talmudic Seminary,3802,NY,0.8963730569948186,19093.0,30793.0,-11700.0,90.0,True,robust fail,
+Bet Medrash Gadol Ateret Torah,3802,NY,1.0,19783.0,30793.0,-11010.0,23.0,True,robust fail,
+Yeshivath Viznitz,3802,NY,0.826530612244898,19897.0,30793.0,-10896.0,159.0,True,robust fail,
+Talmudical Seminary of Bobov,3802,NY,0.986842105263158,20163.0,30793.0,-10630.0,106.0,True,robust fail,
+Yeshiva of Machzikai Hadas,3802,NY,0.9797979797979798,20640.0,30793.0,-10153.0,89.0,True,robust fail,
+Mesivta Torah Vodaath Rabbinical Seminary,3802,NY,0.8148148148148148,21332.0,30793.0,-9461.0,35.0,True,robust fail,
+Rabbinical College Bobover Yeshiva Bnei Zion,3802,NY,0.9761904761904762,23329.0,30793.0,-7464.0,81.0,True,robust fail,
+Central Yeshiva Tomchei Tmimim Lubavitz,3802,NY,0.3916666666666666,24179.0,31269.0,-7090.0,108.0,True,robust fail,
+Mid-Atlantic Christian University,3902,NC,0.7777777777777778,26873.0,29344.0,-2471.0,19.0,False,robust fail,
+Appalachian Bible College,3902,WV,0.4358974358974359,28980.0,31269.0,-2289.0,35.0,False,conditional,t8
+Crown College,3907,MN,0.5072463768115942,32718.0,34795.0,-2077.0,26.0,False,conditional,"nat_th,res_alt,t8"
+Uta Mesivta of Kiryas Joel,3802,NY,0.9946996466431096,29579.0,30793.0,-1214.0,299.0,True,conditional,t8
+Southeastern University,3907,FL,0.4434628975265017,30430.0,31269.0,-839.0,17.0,False,conditional,"state_th,res_alt,t4,t8,h_up50"
+Bethany Global University,3903,MN,0.1818181818181818,31744.0,31269.0,475.0,43.0,False,conditional,"state_th,res_alt,h_dn15,h_dn50"
+Franciscan University of Steubenville,3801,OH,0.167420814479638,31906.0,31269.0,637.0,26.0,False,conditional,h_dn50
+University of St Thomas,3802,MN,0.7849936948297604,35960.0,34795.0,1165.0,22.0,False,robust pass,
+Crown College,3904,MN,0.5072463768115942,36826.0,34795.0,2031.0,38.0,False,conditional,h_dn50
+The University of Texas Rio Grande Valley,3801,TX,0.9875216637781628,33457.0,31171.0,2286.0,20.0,False,robust pass,
+Northpoint Bible College,3902,MA,0.1176470588235294,35108.0,31269.0,3839.0,51.0,False,conditional,"state_th,res_alt"
+Maranatha Baptist University,3907,WI,0.3312101910828025,36728.0,31269.0,5459.0,16.0,False,robust pass,
+St Olaf College,3802,MN,0.4735023041474654,37335.0,31269.0,6066.0,26.0,False,robust pass,
+Boston Baptist College,3902,MA,0.2,37547.0,31269.0,6278.0,22.0,False,robust pass,

@@ -1,0 +1,6 @@
+filter,kind,programs,earners,pct_earners
+Fail the earnings test,-,14,1551,14.9
+2. Inside the loan program,Removed by the rule,4,97,0.9
+3. Large enough to be tested,Removed by the rule,3,78,0.7
+4. Loan exposure,"Bounded, not removed",3,78,0.7
+5. Folding into a passing program,"Possible response, lagged",3,78,0.7

@@ -1,0 +1,9 @@
+case,threshold,n_sigma_combinations,min_pooled,max_pooled,worst_margin,passes_all
+"Crown 39.07 -> Bible 39.02 (MN 34,795)",34795,25,37592,45294,2797,True
+"Crown 39.07 -> Psych 42.01+42.28 (MN 34,795)",34795,125,38261,52229,3466,True
+"Crown 39.07 -> Psych 42.01 only (MN 34,795)",34795,25,34807,43737,12,True
+"Crown 39.07 + 39.04 -> Bible 39.02 (MN 34,795)",34795,125,37214,44185,2419,True
+"Maranatha 39.07 -> Bible 39.02 (WI 33,397)",33397,25,39666,49968,6269,True
+"Maranatha 39.07 -> Bible 39.02 (national 31,269)",31269,25,39666,49968,8397,True
+"Southeastern 39.07 -> 39.06 (national 31,269)",31269,25,34042,42076,2773,True
+"Southeastern 39.07 -> Psych 42.01 (national 31,269)",31269,25,36099,45936,4830,True

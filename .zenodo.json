@@ -1,0 +1,11 @@
+{
+  "title": "Replication package for: From Nominal Failure to Effective Exposure: Program-Level Earnings Accountability in a Multiproduct, Mixed-Finance Industry",
+  "upload_type": "software",
+  "description": "<p>Code and data that reproduce every table and figure in the paper. The pipeline scores religion and theology degree programs against the earnings test in the U.S. Department of Education's July 2026 final rule (91 FR 40136) using College Scorecard earnings, Federal Student Aid volume reports, IPEDS completions and residence, and ACS 2019–23 comparators, and measures the filters between nominal failure and economic exposure. ACS microdata are not redistributed (IPUMS terms); the derived statistics are included. Run <code>python run_all.py</code>.</p>",
+  "creators": [
+    {"name": "O'Brien, Michael", "orcid": "0009-0002-8028-843X"}
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["earnings accountability", "higher education", "industrial organization", "multiproduct firms", "religion", "replication package"],
+  "access_right": "open"
+}

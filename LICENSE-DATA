@@ -1,0 +1,6 @@
+The author's coding of sponsoring bodies (data/raw/author/polity_coding_sheet.csv), the transcribed thresholds,
+the ACS-derived statistics in data/acs/, and the tables and figures in output/ are licensed under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+
+The federal source files in data/raw/scorecard, data/raw/fsa and data/raw/ipeds are works of the U.S. Government
+and are in the public domain. ACS microdata are not included; their use is governed by the IPUMS terms of use.
