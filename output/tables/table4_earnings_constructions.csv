@@ -4,6 +4,8 @@ Same construction,+0.0%,14,+0.0%,5,5,1.8,1.8,3,3,True
 "W-2-only -> netted, s = 50%",+6.3%,13,+7.1%,2,2,0.8,0.8,1,1,True
 "Netted -> W-2-only, s = 15%",-3.2%,15,-6.5%,11,9,4.9,4.2,8,6,True
 "Netted -> W-2-only, s = 50%",-8.3%,17,-11.0%,15,12,6.2,5.1,10,8,True
+"Netted -> W-2-only, s = 15%, W-2-only ACS base",-2.2%,15,-2.4%,5,5,1.8,1.8,3,3,True
+"Netted -> W-2-only, s = 50%, W-2-only ACS base",-4.7%,15,-5.1%,9,8,4.1,3.7,7,6,True
 "Naive sum -> netted, s = 15%",-3.8%,15,-7.3%,12,9,5.1,4.2,8,6,True
 "Naive sum -> netted, s = 50%",-1.5%,15,-5.6%,10,8,4.4,3.7,8,6,True
 "Naive sum -> W-2-only, s = 15%",-5.9%,16,-9.5%,14,12,5.7,5.1,9,8,True

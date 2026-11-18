@@ -4,6 +4,10 @@
 
 Michael O'Brien ([ORCID 0009-0002-8028-843X](https://orcid.org/0009-0002-8028-843X))
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24341795.svg)](https://doi.org/10.5281/zenodo.24341795)
+
+Archived at Zenodo: https://doi.org/10.5281/zenodo.24341795
+
 This repository reproduces every table and figure in the paper from public data. `python run_all.py` runs the whole pipeline in about 20 seconds on a laptop.
 
 ## Overview
@@ -49,7 +53,7 @@ The extract is IPUMS USA `usa_00003`, created November 6, 2026:
 
 To recompute `data/acs/`, save the extract as `data/raw/ipums/usa_00003.csv.gz` and run `python run_all.py`.
 
-Users of IPUMS data must cite it: Ruggles, S., Flood, S., Sobek, M., et al. *IPUMS USA* [dataset]. Minneapolis, MN: IPUMS. https://usa.ipums.org.
+Users of IPUMS data must cite it. The extract was drawn from IPUMS USA Version 16.0: Ruggles, S., Flood, S., Sobek, M., Backman, D., Cooper, G., Rivera Drew, J. A., Richards, S., Rogers, R., Schroeder, J., & Williams, K. C. W. (2025). *IPUMS USA: Version 16.0* [dataset]. Minneapolis, MN: IPUMS. https://doi.org/10.18128/D010.V16.0
 
 ## Computational requirements
 
@@ -119,9 +123,8 @@ python run_all.py
   - In the Scorecard files, by institution name: Yeshiva, Talmud, Rabbinical, Mesivta or Medrash.
   - In the FSA files, by the broader name pattern in `code/06_filters.py`, excluding Yeshiva University.
 - **Housing-allowance shifts (Table 4).**
-  - Rows 2–5 scale the ACS earnings of clergy who pay self-employment tax up or down by the allowance net of a one-third opt-out.
-  - Rows 6–9 treat the ACS as a W-2-only base and compare the naive-sum, netted and W-2-only medians.
-  - `output/tables/table4_alt_stripped_base.csv` reports the stripped case on the W-2-only base for comparison. This is a robustness check not shown in the paper.
+  - The "added" and first "stripped" rows scale the ACS earnings of clergy who pay self-employment tax up or down by the allowance net of a one-third opt-out.
+  - The stripped rows marked "W-2-only ACS base" and the naive-sum rows treat the ACS as recording W-2 wages only and compare the naive-sum, netted and W-2-only medians. The ACS cannot show which assumption is right, so the paper reports both.
 - **Loan-exposure ceiling (Table 6).**
   - The ceiling is min(institution Direct Loans, min(estimated enrollment, undergraduate borrowers) × $12,500).
   - Estimated enrollment is four years of four-digit completions divided by a completion rate of 1/2 or 1/3.
