@@ -35,3 +35,18 @@ c39 = g[g.CIPCODE.str[:2] == "39"]
 print(f"CIP 39: {len(c39)} programs; testable after pooling {int((c39.two >= 15).sum())}; not {int((c39.two < 15).sum())}, "
       f"{100*c39[c39.two < 15].two.sum()/c39.two.sum():.0f}% of awards")
 g.to_csv(C.DER / "universe_38_39_ba.csv", index=False)
+
+# Sensitivity (Section 5): failures among the unreported, potentially testable programs inside the loan program if they failed
+# at the rate observed among reported programs inside the loan program (Clopper-Pearson 95% interval on that rate).
+from scipy.stats import beta
+ba = pd.read_csv(C.DER / "ba_robustness.csv", dtype={"CIPCODE": str})
+inl = ba[~ba.no_dl_5y.astype(str).eq("True")]
+k, n = int(inl.fail_rule.sum()), len(inl)
+lo, hi = beta.ppf(0.025, k, n - k + 1), beta.ppf(0.975, k + 1, n - k)
+m = len(u)
+sens = pd.DataFrame([dict(reported_in_loan=n, failing=k, rate=round(k / n, 4), rate_lo=round(lo, 4), rate_hi=round(hi, 4),
+                          unreported_testable_in_loan=m, expected=round(m * k / n, 1), expected_lo=round(m * lo, 1), expected_hi=round(m * hi, 1))])
+save(sens, "unreported_sensitivity.csv"); print(sens.to_string(index=False))
+c39u = u[u.CIPCODE.str[:2] == "39"]; c39r = inl[inl.CIPCODE.str.startswith("39")]
+print(f"CIP 39 only: reported in loan {len(c39r)}, failing {int(c39r.fail_rule.sum())}; unreported testable in loan {len(c39u)}; "
+      f"expected {len(c39u)*c39r.fail_rule.mean():.1f}")

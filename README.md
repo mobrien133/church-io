@@ -103,6 +103,8 @@ python run_all.py
 | Table 9 | `output/tables/table9_robustness.csv`, `table9_counts_by_alternative.csv` | 05 |
 | Table 10 (responses available) | Descriptive; no computation | — |
 | Table A1 | `output/tables/tableA1_flow.csv`, `tableA1_categories.csv` | 10 |
+| Table A2 | `output/tables/tableA2_carveout_institutions.csv` (failing shares from `data/derived/breadth_all_levels.csv`) | 06, 08 |
+| Unreported-program sensitivity (Section 5) | `output/tables/unreported_sensitivity.csv` | 10 |
 | Figure 1 | `output/figures/figure1.png` | 12 |
 | Figure 2 | `output/figures/figure2.png` | 12 |
 | Bootstrap intervals (Sections 4.1–4.2) | `output/tables/bootstrap_failure_shares.csv` | 11 |
@@ -125,9 +127,11 @@ python run_all.py
 - **Housing-allowance shifts (Table 4).**
   - The "added" and first "stripped" rows scale the ACS earnings of clergy who pay self-employment tax up or down by the allowance net of a one-third opt-out.
   - The stripped rows marked "W-2-only ACS base" and the naive-sum rows treat the ACS as recording W-2 wages only and compare the naive-sum, netted and W-2-only medians. The ACS cannot show which assumption is right, so the paper reports both.
-- **Loan-exposure ceiling (Table 6).**
-  - The ceiling is min(institution Direct Loans, min(estimated enrollment, undergraduate borrowers) × $12,500).
-  - Estimated enrollment is four years of four-digit completions divided by a completion rate of 1/2 or 1/3.
+- **Direct Loan activity and the carve-out.** The FSA Direct Loan volume reports list only institutions with a loan originated or disbursed in the award year. An institution absent from all five reports (2021–22 to 2025–26) is coded as having no Direct Loan activity (`no_dl_5y`). The carve-out (34 CFR 668.14(h)(3)(i)) turns on Direct Loan *participation*, recorded on each institution's Eligibility and Certification Approval Report, which is not public. No activity is consistent with nonparticipation but does not establish it; Section 5.2 of the paper discusses the alternative route under 668.14(h)(3)(ii).
+- **Loan exposure (Table 6).**
+  - Loan types from the Direct Loan volume reports: undergraduate student (subsidized + undergraduate unsubsidized), Parent PLUS, and graduate (graduate unsubsidized + Grad PLUS). Graduate loans are reported but excluded from the program measures.
+  - Allocation: (undergraduate student + Parent PLUS) × the program's share of first-major bachelor's completions.
+  - Ceiling: min(undergraduate student loans, min(E, subsidized + unsubsidized recipients) × $12,500) + min(Parent PLUS, min(E, Parent PLUS recipients) × $20,000). E, estimated enrollment, is four years of four-digit completions divided by a completion rate of 1/2 or 1/3. Summing recipients across loan types overstates distinct borrowers, as an upper bound should; $20,000 is the Parent PLUS annual limit for new borrowing from July 1, 2026.
   - The ceiling is an illustrative conditional bound, not a statutory maximum.
 - **Institutions outside the federal files.** Records with no match in the FSA volume files are treated as inside the loan program. Sixty-three CIP 38–39 bachelor's records have no match, and one reported graduate program does: the Southern Baptist Theological Seminary, which passes either way.
 

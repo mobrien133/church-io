@@ -64,25 +64,42 @@ first = bach[(bach.MAJORNUM == 1) & ~bach.CIPCODE.str.startswith("99")]
 T6 = [("Appalachian Bible College", "39.02"), ("Mid-Atlantic Christian University", "39.02"), ("Crown College", "39.07"),
       ("Southeastern University", "39.07"), ("Bethany Global University", "39.03"), ("Crown College", "39.04"),
       ("Northpoint Bible College", "39.02"), ("Maranatha Baptist University", "39.07"), ("Boston Baptist College", "39.02")]
+STUDENT_MAX, PARENT_MAX = 12500, 20000   # independent-undergraduate annual maximum; Parent PLUS annual cap from July 1, 2026
+z = lambda v: float(np.nan_to_num(float(v)))
 rows = []
 for name, cip4 in T6:
     p = ba[(ba.INSTNM == name) & (ba.CIPCODE == cip4.replace(".", ""))].iloc[0]
     u = int(p.UNITID); i = fi[fi.opeid6 == p.opeid6].iloc[0]
     fu = first[first.UNITID == u]
     two = int(fu[fu.CIPCODE.str[:5] == cip4].CTOTALT.sum()); tot = int(fu.CTOTALT.sum())
-    dl, pell, ugr = float(i.dl_usd_2526 or 0), float(np.nan_to_num(i.pell_usd_2526)), float(np.nan_to_num(i.dl_ug_recip_2526))
+    ug, pp, gr = z(i.ug_student_usd_2526), z(i.pplus_usd_2526), z(i.grad_usd_2526)
+    dl, pell = z(i.dl_usd_2526), z(i.pell_usd_2526)
     aid = dl + pell
-    alloc = dl * two / tot
-    r = dict(program=f"{name}, {cip4}", margin=round(p.margin_rule), dl=dl, aid=aid, two_yr_completions=two, bach_total_2yr=tot,
-             alloc=alloc, alloc_pct=round(100 * alloc / aid, 1))
+    alloc = (ug + pp) * two / tot
+    r = dict(program=f"{name}, {cip4}", margin=round(p.margin_rule), ug_student_dl=ug, parent_plus=pp, graduate_dl=gr, aid=aid,
+             two_yr_completions=two, bach_total_2yr=tot, alloc=alloc, alloc_pct=round(100 * alloc / aid, 1))
     for lab, rate in [("half", 1 / 2), ("third", 1 / 3)]:
         enroll = 2 * two / rate
-        ceil = min(dl, min(enroll, ugr) * 12500)
-        r[f"ceiling_{lab}"] = ceil; r[f"ceiling_{lab}_pct"] = round(100 * ceil / aid, 1)
+        stu = min(ug, min(enroll, z(i.dl_ug_recip_2526)) * STUDENT_MAX)     # recipients summed across loan types: >= distinct borrowers
+        par = min(pp, min(enroll, z(i.pplus_recip_2526)) * PARENT_MAX)
+        r[f"ceiling_{lab}_student"] = stu; r[f"ceiling_{lab}_parent"] = par
+        r[f"ceiling_{lab}"] = stu + par; r[f"ceiling_{lab}_pct"] = round(100 * (stu + par) / aid, 1)
     rows.append(r)
 t6 = pd.DataFrame(rows)
 save(t6, "table6_loan_exposure.csv")
-print(t6.assign(**{k: (t6[k] / 1e3).round(0) for k in ["dl", "aid", "alloc", "ceiling_half", "ceiling_third"]}).to_string(index=False))
+k = lambda c: (t6[c] / 1e3).round(0)
+print(t6[["program", "margin"]].assign(ug=k("ug_student_dl"), pplus=k("parent_plus"), grad=k("graduate_dl"), aid=k("aid"), alloc=k("alloc"),
+      alloc_pct=t6.alloc_pct, c2=k("ceiling_half"), c2s=k("ceiling_half_student"), c2p=k("ceiling_half_parent"), c2pct=t6.ceiling_half_pct,
+      c3=k("ceiling_third"), c3pct=t6.ceiling_third_pct).to_string(index=False))
+
+# The ten failing institutions outside the loan program: evidence and what is at stake (Section 5.2)
+br = None
+ten = f[f.no_dl_5y].copy()
+ten = ten.merge(fi[["opeid6", "years_in_dl_report", "pell_recip_2526"]], on="opeid6", how="left")
+t5b = ten[["INSTNM", "CIPCODE", "earners4", "years_in_dl_report", "pell_recip_2526", "pell_usd_2526"]].rename(columns={"pell_usd_2526": "pell_usd_2526"})
+save(t5b, "tableA2_carveout_institutions.csv")
+print(t5b.to_string(index=False))
+print(f"Pell 2025-26 at the ten: ${t5b.pell_usd_2526.sum()/1e6:.1f}M")
 
 # Cohort floor, Mid-Atlantic Christian 39.02 (Section 5.3)
 u = int(ba[(ba.INSTNM == "Mid-Atlantic Christian University") & (ba.CIPCODE == "3902")].UNITID.iloc[0])

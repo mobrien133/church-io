@@ -22,9 +22,17 @@ def load_dl(y):
     d["dl_recip"] = d[[f"{p}_recip" for p in ["sub", "unsub_ug", "unsub_gr", "pplus", "gplus"]]].sum(axis=1, min_count=1)
     d["dl_usd"] = d[[f"{p}_usd_disb" for p in ["sub", "unsub_ug", "unsub_gr", "pplus", "gplus"]]].sum(axis=1, min_count=1)
     d["dl_ug_recip"] = d[["sub_recip", "unsub_ug_recip"]].sum(axis=1, min_count=1)
+    d["dl_orig_usd"] = d[[f"{p}_usd_orig" for p in ["sub", "unsub_ug", "unsub_gr", "pplus", "gplus"]]].sum(axis=1, min_count=1)
+    # loan types: undergraduate student (subsidized + undergraduate unsubsidized), Parent PLUS, graduate (unsubsidized + Grad PLUS)
+    d["ug_student_usd"] = d[["sub_usd_disb", "unsub_ug_usd_disb"]].sum(axis=1, min_count=1)
+    d["pplus_usd"] = d.pplus_usd_disb; d["pplus_recip"] = d.pplus_recip
+    d["grad_usd"] = d[["unsub_gr_usd_disb", "gplus_usd_disb"]].sum(axis=1, min_count=1)
     d["opeid6"] = d.opeid.str[:6]
     g = d.groupby("opeid6").agg(school=("school", "first"), state=("state", "first"), type=("type", "first"),
-                                dl_recip=("dl_recip", "sum"), dl_usd=("dl_usd", "sum"), dl_ug_recip=("dl_ug_recip", "sum"))
+                                dl_recip=("dl_recip", "sum"), dl_usd=("dl_usd", "sum"), dl_orig_usd=("dl_orig_usd", "sum"),
+                                dl_ug_recip=("dl_ug_recip", "sum"), ug_student_usd=("ug_student_usd", "sum"),
+                                pplus_usd=("pplus_usd", "sum"), pplus_recip=("pplus_recip", "sum"), grad_usd=("grad_usd", "sum"))
+    g["in_dl_report"] = True   # the volume report lists only schools with Direct Loan originations or disbursements that year
     g["year"] = y
     return g.reset_index()
 
@@ -57,10 +65,14 @@ print(panel.groupby("year")[["dl_recip", "dl_usd", "pell_recip", "pell_usd"]].su
 inst = panel.groupby("opeid6").agg(school=("school", "first"), state=("state", "first"), type=("type", "first"),
                                    dl_recip_5y=("dl_recip", "sum"), dl_usd_5y=("dl_usd", "sum"),
                                    years_with_dl=("dl_usd", lambda s: int((s.fillna(0) > 0).sum())),
+                                   years_in_dl_report=("in_dl_report", lambda s: int(s.fillna(False).astype(bool).sum())),
                                    pell_recip_5y=("pell_recip", "sum"), pell_usd_5y=("pell_usd", "sum"))
-latest = panel[panel.year == "2526"].set_index("opeid6")[["dl_recip", "dl_usd", "dl_ug_recip", "pell_recip", "pell_usd"]].add_suffix("_2526")
+latest = panel[panel.year == "2526"].set_index("opeid6")[["dl_recip", "dl_usd", "dl_ug_recip", "ug_student_usd", "pplus_usd", "pplus_recip", "grad_usd", "pell_recip", "pell_usd"]].add_suffix("_2526")
 inst = inst.join(latest)
-inst["no_dl_5y"] = inst.years_with_dl == 0
+# No Direct Loan activity: absent from all five Direct Loan volume reports (no originations or disbursements recorded in COD).
+# This is evidence consistent with nonparticipation; Direct Loan participation status itself (the ECAR) is not public.
+inst["no_dl_5y"] = inst.years_in_dl_report == 0
+assert (inst.no_dl_5y == (inst.years_with_dl == 0)).all()
 inst.to_csv(C.DER / "fsa_institutions.csv")
 print("institutions with no DL in any of 5 years:", int(inst.no_dl_5y.sum()), "of", len(inst))
 

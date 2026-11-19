@@ -1,0 +1,2 @@
+reported_in_loan,failing,rate,rate_lo,rate_hi,unreported_testable_in_loan,expected,expected_lo,expected_hi
+221,4,0.0181,0.005,0.0457,401,7.3,2.0,18.3

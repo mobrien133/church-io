@@ -97,16 +97,29 @@ institutions offering a religion bachelor's: 1287; no Direct Loans: 112 with Pel
 inside the loan program: 4 (97 earners, 0.9%)
   -> output/tables/table5_cascade.csv
   -> output/tables/table6_loan_exposure.csv
-                                 program  margin      dl     aid  two_yr_completions  bach_total_2yr  alloc  alloc_pct  ceiling_half  ceiling_half_pct  ceiling_third  ceiling_third_pct
-        Appalachian Bible College, 39.02   -2289   159.0   809.0                  58              58  159.0       19.7         159.0              19.7          159.0               19.7
-Mid-Atlantic Christian University, 39.02   -2471   646.0  1040.0                   3              28   69.0        6.7         150.0              14.4          225.0               21.6
-                    Crown College, 39.07   -2077  6165.0  8004.0                  19             301  389.0        4.9         950.0              11.9         1425.0               17.8
-          Southeastern University, 39.07    -839 33834.0 49575.0                  20            1864  363.0        0.7        1000.0               2.0         1500.0                3.0
-        Bethany Global University, 39.03     475    48.0   166.0                  99              99   48.0       29.2          48.0              29.2           48.0               29.2
-                    Crown College, 39.04    2031  6165.0  8004.0                  33             301  676.0        8.4        1650.0              20.6         2475.0               30.9
-         Northpoint Bible College, 39.02    3839   198.0   391.0                  70              70  198.0       50.8         198.0              50.8          198.0               50.8
-     Maranatha Baptist University, 39.07    5459  1250.0  2797.0                  15             207   91.0        3.2         750.0              26.8         1125.0               40.2
-           Boston Baptist College, 39.02    6278    26.0    58.0                  12              12   26.0       45.3          26.0              45.3           26.0               45.3
+                                 program  margin      ug  pplus    grad     aid  alloc  alloc_pct     c2    c2s    c2p  c2pct     c3  c3pct
+        Appalachian Bible College, 39.02   -2289   151.0    8.0     0.0   809.0  159.0       19.7  159.0  151.0    8.0   19.7  159.0   19.7
+Mid-Atlantic Christian University, 39.02   -2471   536.0  111.0     0.0  1040.0   69.0        6.7  261.0  150.0  111.0   25.1  336.0   32.3
+                    Crown College, 39.07   -2077  3246.0  732.0  2187.0  8004.0  251.0        3.1 1682.0  950.0  732.0   21.0 2157.0   27.0
+          Southeastern University, 39.07    -839 18000.0 5509.0 10324.0 49575.0  252.0        0.5 2600.0 1000.0 1600.0    5.2 3900.0    7.9
+        Bethany Global University, 39.03     475    48.0    0.0     0.0   166.0   48.0       29.2   48.0   48.0    0.0   29.2   48.0   29.2
+                    Crown College, 39.04    2031  3246.0  732.0  2187.0  8004.0  436.0        5.4 2382.0 1650.0  732.0   29.8 3207.0   40.1
+         Northpoint Bible College, 39.02    3839   152.0   16.0    31.0   391.0  168.0       42.9  168.0  152.0   16.0   42.9  168.0   42.9
+     Maranatha Baptist University, 39.07    5459   717.0  376.0   157.0  2797.0   79.0        2.8 1017.0  717.0  300.0   36.3 1017.0   36.3
+           Boston Baptist College, 39.02    6278    26.0    0.0     0.0    58.0   26.0       45.3   26.0   26.0    0.0   45.3   26.0   45.3
+  -> output/tables/tableA2_carveout_institutions.csv
+                                      INSTNM CIPCODE  earners4  years_in_dl_report  pell_recip_2526  pell_usd_2526
+     Central Yeshiva Tomchei Tmimim Lubavitz    3802     108.0                   0            652.0     6700086.00
+   Mesivta Torah Vodaath Rabbinical Seminary    3802      35.0                   0            223.0     1762108.29
+Rabbinical College Bobover Yeshiva Bnei Zion    3802      81.0                   0            448.0     3265319.50
+                  United Talmudical Seminary    3802     464.0                   0           2321.0    21828481.25
+                           Yeshivath Viznitz    3802     159.0                   0           1146.0    11215469.50
+                  Uta Mesivta of Kiryas Joel    3802     299.0                   0           2712.0    24880397.30
+                Talmudical Seminary of Bobov    3802     106.0                   0            500.0     5396895.00
+                  Yeshiva of Machzikai Hadas    3802      89.0                   0            471.0     4233812.00
+              Be'er Yaakov Talmudic Seminary    3802      90.0                   0            745.0     5919862.54
+              Bet Medrash Gadol Ateret Torah    3802      23.0                   0             81.0      602999.00
+Pell 2025-26 at the ten: $85.8M
 
 Mid-Atlantic 39.02 bachelor's completions by year and major: {('c2022', 1): 1, ('c2022', 2): 6, ('c2023', 1): 2, ('c2023', 2): 3}
 NYTS Direct Loans by year: {'2122': 1156693.0, '2223': 716623.0}
@@ -199,6 +212,10 @@ Faith Baptist Bible College and Theological Seminary    3902 20523.0
                        Western Washington University    3801 32031.0
                                    Dartmouth College    3801 34177.0
 CIP 39: 1001 programs; testable after pooling 215; not 786, 21% of awards
+  -> output/tables/unreported_sensitivity.csv
+ reported_in_loan  failing   rate  rate_lo  rate_hi  unreported_testable_in_loan  expected  expected_lo  expected_hi
+              221        4 0.0181    0.005   0.0457                          401       7.3          2.0         18.3
+CIP 39 only: reported in loan 110, failing 4; unreported testable in loan 117; expected 4.3
 
 ===== 11_bootstrap
   -> output/tables/bootstrap_failure_shares.csv
