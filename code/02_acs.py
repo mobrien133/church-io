@@ -65,7 +65,9 @@ rows = [dict(state=st, n=len(g), median=wmed(g.INCEARN, g.PERWT)) for st, g in h
 rows.append(dict(state="US", n=len(hs), median=wmed(hs.INCEARN, hs.PERWT)))
 t = pd.DataFrame(rows); t["fr2024"] = t.state.map(TH); t["ratio"] = t["median"] / t.fr2024
 t.to_csv(C.ACS / "acs_state_hs_thresholds.csv", index=False)
-print("HS-only median ratio to 89 FR 107130:", round(t.ratio.median(), 3))
+st = t[t.state != "US"]
+print(f"HS-only median ratio to 89 FR 107130, states: median {st.ratio.median():.3f}, range {st.ratio.min():.3f}-{st.ratio.max():.3f}, "
+      f"within 10 percent {int(((st.ratio - 1).abs() <= 0.10).sum())} of {len(st)}")
 
 # 2. Bachelor's-only comparators by field, state and national; n < 16 rule
 ba = L[L.EDUCD == 101]

@@ -35,3 +35,37 @@ g = pd.read_csv(C.DER / "grad_programs_scored.csv")
 for k in [1.04, 1.08]:
     f = g.earn4 * k < g.comp_national
     print(f"graduate x{k}: {int(f.sum())} below $45,000:", ", ".join(g.INSTNM[f]))
+
+# Joint sensitivity (Cartesian product): threshold x earnings timing x compensation construction.
+# Thresholds: rule, state, national, the alternative residence classification. Timing: x1, x1.04, x1.08.
+# Construction: published as is; allowance added or stripped at s = 15%, 50% (scaled ACS base); stripped on a W-2-only ACS
+# base; naive sum to netted or W-2-only (CIP 39 only), all from step 2.
+import itertools
+h = pd.read_csv(C.ACS / "h7_bounds_acs_shifts.csv"); h = h[h.opt > 0.3]
+nv = pd.read_csv(C.ACS / "acs_naive_sum_shifts.csv")
+T, P = "BA field 49 (theology)", "BA field 48 (phil/relig)"
+is39 = r.CIPCODE.str.startswith("39")
+def hs(g, s_, col): return float(h[(h.group == g) & (h.s == s_)][col].iloc[0])
+def ns(g, s_, col): return float(nv[(nv.group == g) & (nv.s == s_)][col].iloc[0])
+cons = {"published": (0.0, 0.0)}
+for s_ in [0.15, 0.50]:
+    cons[f"added {s_}"] = (hs(T, s_, "up_pct"), hs(P, s_, "up_pct"))
+    cons[f"stripped {s_}"] = (hs(T, s_, "dn_pct"), hs(P, s_, "dn_pct"))
+    cons[f"stripped W2 base {s_}"] = (ns(T, s_, "netted_to_W2"), ns(P, s_, "netted_to_W2"))
+    cons[f"naive->netted {s_}"] = (ns(T, s_, "sum_to_netted"), 0.0)
+    cons[f"naive->W2 {s_}"] = (ns(T, s_, "sum_to_W2"), 0.0)
+ths = {"rule": r.th_rule, "state": r.th, "national": pd.Series(NAT, index=r.index), "res_alt": pd.Series(np.where(r.th_rule == r.th, NAT, r.th), index=r.index)}
+J = {}
+for (tn, th), k, (cn, (d39, d38)) in itertools.product(ths.items(), [1.0, 1.04, 1.08], cons.items()):
+    J[(tn, k, cn)] = r.earn4 * k * (1 + np.where(is39, d39, d38)) < th
+J = pd.DataFrame(J)
+r["joint_fail_share"] = J.mean(axis=1)
+r["joint_class"] = np.where(J.all(axis=1), "fails in every combination", np.where(~J.any(axis=1), "passes in every combination", "conditional"))
+print(f"\njoint design: {J.shape[1]} combinations ({len(ths)} thresholds x 3 timings x {len(cons)} constructions)")
+print(r.joint_class.value_counts().to_string())
+moved = r[(r["class"] == "robust pass") & (r.joint_class != "passes in every combination")]
+print(f"one-at-a-time robust passes that fail in some joint combination: {len(moved)}")
+cond = r[r.joint_class == "conditional"].sort_values("joint_fail_share", ascending=False)
+save(cond[["INSTNM", "CIPCODE", "state", "earn4", "th_rule", "margin_rule", "yeshiva", "class", "joint_fail_share"]].round(3), "table9_joint_conditional.csv")
+print(cond[["INSTNM", "CIPCODE", "margin_rule", "class", "joint_fail_share"]].round(2).to_string(index=False))
+r.to_csv(C.DER / "ba_robustness.csv", index=False)

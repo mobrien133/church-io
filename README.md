@@ -100,7 +100,7 @@ python run_all.py
 | Table 6 | `output/tables/table6_loan_exposure.csv` | 06 |
 | Table 7 | `output/tables/table7_relabel.csv` | 07 |
 | Table 8 | `output/tables/table8_breadth.csv` | 08 |
-| Table 9 | `output/tables/table9_robustness.csv`, `table9_counts_by_alternative.csv` | 05 |
+| Table 9 | `output/tables/table9_robustness.csv`, `table9_counts_by_alternative.csv`, `table9_joint_conditional.csv` (joint design) | 05 |
 | Table 10 (responses available) | Descriptive; no computation | — |
 | Table A1 | `output/tables/tableA1_flow.csv`, `tableA1_categories.csv` | 10 |
 | Table A2 | `output/tables/tableA2_carveout_institutions.csv` (failing shares from `data/derived/breadth_all_levels.csv`) | 06, 08 |

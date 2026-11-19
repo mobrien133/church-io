@@ -12,7 +12,7 @@ institutions with no DL in any of 5 years: 580 of 5648
 no-DL institutions: 580; their Pell 2025-26: $1.42B
 
 ===== 02_acs
-HS-only median ratio to 89 FR 107130: 1.063
+HS-only median ratio to 89 FR 107130, states: median 1.061, range 0.999-1.126, within 10 percent 47 of 51
 national theology bachelor's median: 45000.0 n = 1756 | national all-bachelor's: 59539.0
                      field     n  iqr_sigma
                   theology  1744       0.51
@@ -85,6 +85,26 @@ alternative  fail  pct_earners
   -> output/tables/table9_counts_by_alternative.csv
 graduate x1.04: 2 below $45,000: Azusa Pacific University, Trevecca Nazarene University
 graduate x1.08: 2 below $45,000: Azusa Pacific University, Trevecca Nazarene University
+
+joint design: 132 combinations (4 thresholds x 3 timings x 11 constructions)
+joint_class
+passes in every combination    217
+conditional                     11
+fails in every combination       9
+one-at-a-time robust passes that fail in some joint combination: 2
+  -> output/tables/table9_joint_conditional.csv
+                               INSTNM CIPCODE  margin_rule       class  joint_fail_share
+    Mid-Atlantic Christian University    3902      -2471.0 robust fail              0.95
+            Appalachian Bible College    3902      -2289.0 conditional              0.67
+           Uta Mesivta of Kiryas Joel    3802      -1214.0 conditional              0.62
+            Bethany Global University    3903        475.0 conditional              0.62
+                        Crown College    3907      -2077.0 conditional              0.50
+              Southeastern University    3907       -839.0 conditional              0.42
+             Northpoint Bible College    3902       3839.0 conditional              0.24
+    Mid-Atlantic Christian University    3903       3039.0 robust pass              0.09
+               Boston Baptist College    3902       6278.0 robust pass              0.05
+                        Crown College    3904       2031.0 conditional              0.05
+Franciscan University of Steubenville    3801        637.0 conditional              0.02
 
 ===== 06_filters
 == Carve-out reach ==

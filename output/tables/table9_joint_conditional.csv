@@ -1,0 +1,12 @@
+INSTNM,CIPCODE,state,earn4,th_rule,margin_rule,yeshiva,class,joint_fail_share
+Mid-Atlantic Christian University,3902,NC,26873.0,29344.0,-2471.0,False,robust fail,0.955
+Appalachian Bible College,3902,WV,28980.0,31269.0,-2289.0,False,conditional,0.667
+Uta Mesivta of Kiryas Joel,3802,NY,29579.0,30793.0,-1214.0,True,conditional,0.621
+Bethany Global University,3903,MN,31744.0,31269.0,475.0,False,conditional,0.621
+Crown College,3907,MN,32718.0,34795.0,-2077.0,False,conditional,0.5
+Southeastern University,3907,FL,30430.0,31269.0,-839.0,False,conditional,0.424
+Northpoint Bible College,3902,MA,35108.0,31269.0,3839.0,False,conditional,0.242
+Mid-Atlantic Christian University,3903,NC,32383.0,29344.0,3039.0,False,robust pass,0.091
+Boston Baptist College,3902,MA,37547.0,31269.0,6278.0,False,robust pass,0.045
+Crown College,3904,MN,36826.0,34795.0,2031.0,False,conditional,0.045
+Franciscan University of Steubenville,3801,OH,31906.0,31269.0,637.0,False,conditional,0.015
