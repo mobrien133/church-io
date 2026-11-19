@@ -6,8 +6,8 @@ authors:
   - family-names: "O'Brien"
     given-names: "Michael"
     orcid: "https://orcid.org/0009-0002-8028-843X"
-version: "1.0.1"
-doi: "10.5281/zenodo.24341795"
+version: "1.02"
+doi: "10.5281/zenodo.24362050"
 date-released: "2026-11-18"
 license: MIT
 repository-code: "https://github.com/mobrien133/church-io"

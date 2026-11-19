@@ -4,9 +4,9 @@
 
 Michael O'Brien ([ORCID 0009-0002-8028-843X](https://orcid.org/0009-0002-8028-843X))
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24341795.svg)](https://doi.org/10.5281/zenodo.24341795)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24362050.svg)](https://doi.org/10.5281/zenodo.24362050)
 
-Archived at Zenodo: https://doi.org/10.5281/zenodo.24341795
+Archived at Zenodo: https://doi.org/10.5281/zenodo.24362050
 
 This repository reproduces every table and figure in the paper from public data. `python run_all.py` runs the whole pipeline in about 20 seconds on a laptop.
 
